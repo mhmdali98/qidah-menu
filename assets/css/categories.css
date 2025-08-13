@@ -31,6 +31,12 @@
   padding: 0 10px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .title {
   color: white;
   font-size: 24px;

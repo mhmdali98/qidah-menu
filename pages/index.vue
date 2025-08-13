@@ -12,7 +12,7 @@
         v-for="category in categories"
         :key="category.id"
         :category="category.id"
-        :title="category.title"
+        :title="$t(category.titleKey)"
         :icon="category.icon"
         @select="selectCategory"
       />

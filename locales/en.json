@@ -9,6 +9,58 @@
     "calories": "calories",
     "sweet": "Sweet",
     "footer_text": "Thank you for choosing Qidah Restaurant. We hope you enjoy your meal!",
+    
+    // Page titles and navigation
+    "categories": "Categories",
+    "back_to_categories": "Back to Categories",
+    "scroll_to_top": "Scroll to Top",
+    "search": "Search",
+    "close": "Close",
+    "back": "Back",
+    
+    // Search dialog
+    "search_placeholder": "Search...",
+    "search_title": "Qidah Menu",
+    "no_search_results": "No search results found",
+    "recent_items": "Recent Items",
+    
+    // Meal detail dialog
+    "quick_preparation": "Quick Preparation",
+    "rating": "Rating",
+    "price": "Price",
+    "description": "Description",
+    
+    // Categories
+    "cold_appetizers": "Cold Appetizers",
+    "hot_appetizers": "Hot Appetizers",
+    "soups_salads": "Soups and Salads",
+    "western_grilled": "Western and Grilled Dishes",
+    "seafood": "Sea Food",
+    "kebabs_iranian": "Kebabs and Iranian Dishes",
+    "pizza": "Pizza",
+    "burger_taco_pasta": "Burger, Taco, Pasta",
+    "special_makhtil": "Special Makhtil",
+    "mocktails": "Mocktails",
+    "shakes": "Shakes",
+    "smoothie": "Smoothie",
+    "natural_juices": "Natural Seasonal Juices",
+    "cold_coffee": "Cold Coffee Drinks",
+    "hot_drinks": "Hot Drinks Bar",
+    
+    // Common actions
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    
+    // Dashboard and navigation
     "dashboard": "Dashboard",
     "sales": "Sales",
     "analytics": "Analytics",
@@ -41,8 +93,6 @@
     "invoice": "Invoice",
     "list": "List",
     "preview": "Preview",
-    "add": "Add",
-    "edit": "Edit",
     "calendar": "Calendar",
     "tabs": "Tabs",
     "accordions": "Accordions",
@@ -72,7 +122,6 @@
     "pagination": "Pagination",
     "popovers": "Popovers",
     "progress_bar": "Progress Bar",
-    "search": "Search",
     "tooltips": "Tooltips",
     "treeview": "Treeview",
     "typography": "Typography",
@@ -104,7 +153,6 @@
     "contact_form": "Contact Form",
     "faq": "Faq",
     "coming_soon": "Coming Soon",
-    "error": "Error",
     "maintenence": "Maintenence",
     "login_boxed": "Login Boxed",
     "register_boxed": "Register Boxed",

@@ -3,7 +3,7 @@
     <div class="nav-header">
       <button class="categories-button" @click="$emit('back-to-categories')">
         <IconifyIcon icon="mdi:view-grid" class="w-5 h-5" />
-        <span>Categories</span>
+        <span>{{ $t('categories') }}</span>
       </button>
       <div class="nav-actions">
         <button class="search-button" @click="openSearch">
@@ -30,7 +30,7 @@
           @click="$emit('select-category', category.id)"
         >
           <IconifyIcon :icon="category.icon" class="w-5 h-5" />
-          <span>{{ category.title }}</span>
+          <span>{{ $t(category.titleKey) }}</span>
         </button>
       </div>
     </div>

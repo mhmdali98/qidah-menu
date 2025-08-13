@@ -1,8 +1,11 @@
 <template>
   <div class="header">
-    <h1 class="title">{{ title }}</h1>
-    <div class="search-icon" @click="openSearch">
-      <IconifyIcon icon="mdi:magnify" class="w-6 h-6" />
+    <h1 class="title">{{ $t('categories') }}</h1>
+    <div class="header-actions">
+      
+      <div class="search-icon" @click="openSearch">
+        <IconifyIcon icon="mdi:magnify" class="w-6 h-6" />
+      </div>
     </div>
   </div>
   

@@ -30,7 +30,7 @@
           <div class="meal-info">
             <div class="info-item">
               <IconifyIcon icon="mdi:clock-outline" class="w-5 h-5" />
-              <span>تحضير سريع</span>
+              <span>{{ $t('quick_preparation') }}</span>
             </div>
             <div class="info-item">
               <IconifyIcon icon="mdi:star" class="w-5 h-5" />

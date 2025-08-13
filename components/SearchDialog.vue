@@ -8,7 +8,7 @@
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Q se..."
+            :placeholder="$t('search_placeholder')"
             class="search-input"
             @input="handleSearch"
             ref="searchInput"
@@ -20,12 +20,12 @@
       </div>
 
       <!-- Title -->
-      <h1 class="dialog-title">Beliton Menu</h1>
+      <h1 class="dialog-title">{{ $t('search_title') }}</h1>
 
       <!-- Search Results -->
       <div class="search-results">
         <div v-if="searchQuery && filteredItems.length === 0" class="no-results">
-          <p>لا توجد نتائج للبحث</p>
+          <p>{{ $t('no_search_results') }}</p>
         </div>
         <div v-else-if="searchQuery && filteredItems.length > 0" class="results-list">
           <MenuItemCard
@@ -40,7 +40,7 @@
           />
         </div>
         <div v-else class="recent-items">
-          <h3 class="recent-title">العناصر الأخيرة</h3>
+          <h3 class="recent-title">{{ $t('recent_items') }}</h3>
           <MenuItemCard
             v-for="item in recentItems"
             :key="item.id"

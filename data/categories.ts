@@ -1,6 +1,6 @@
 export interface Category {
   id: string;
-  title: string;
+  titleKey: string;
   icon: string;
 }
 
@@ -8,85 +8,85 @@ export const categories: Category[] = [
   // Row 1
   {
     id: 'cold-appetizers',
-    title: 'Cold Appetizers',
+    titleKey: 'cold_appetizers',
     icon: 'mdi:bowl-mix'
   },
   {
     id: 'hot-appetizers',
-    title: 'Hot Appetizers',
+    titleKey: 'hot_appetizers',
     icon: 'mdi:bowl-mix-outline'
   },
   {
     id: 'soups-salads',
-    title: 'Soups and Salads',
-    icon: 'mdi:food-salad'
+    titleKey: 'soups_salads',
+    icon: 'ph:bowl-food-duotone'
   },
   
   // Row 2
   {
     id: 'western-grilled',
-    title: 'Western and grilled dishes',
+    titleKey: 'western_grilled',
     icon: 'mdi:food-steak'
   },
   {
     id: 'seafood',
-    title: 'Sea Food',
+    titleKey: 'seafood',
     icon: 'mdi:fish'
   },
   {
     id: 'kebabs-iranian',
-    title: 'Kebabs and Iranian dishes',
+    titleKey: 'kebabs_iranian',
     icon: 'mdi:food-kebab'
   },
   
   // Row 3
   {
     id: 'pizza',
-    title: 'Pizza',
+    titleKey: 'pizza',
     icon: 'mdi:pizza'
   },
   {
     id: 'burger-taco-pasta',
-    title: 'Burger, Taco, Pasta',
+    titleKey: 'burger_taco_pasta',
     icon: 'mdi:hamburger'
   },
   {
     id: 'special-makhtil',
-    title: 'Special Makhtil',
+    titleKey: 'special_makhtil',
     icon: 'mdi:glass-cocktail'
   },
   
   // Row 4
   {
     id: 'mocktails',
-    title: 'Mocktails',
+    titleKey: 'mocktails',
     icon: 'mdi:glass-mug-variant'
   },
   {
     id: 'shakes',
-    title: 'SHAKES',
+    titleKey: 'shakes',
     icon: 'mdi:cup'
   },
   {
     id: 'smoothie',
-    title: 'Smoothie',
+    titleKey: 'smoothie',
     icon: 'mdi:cup-water'
   },
   
   // Row 5
   {
     id: 'natural-juices',
-    title: 'Natural Seasonal Juices',
+    titleKey: 'natural_juices',
     icon: 'mdi:fruit-citrus'
   },
   {
     id: 'cold-coffee',
-    title: 'Cold Coffee Drinks',
+    titleKey: 'cold_coffee',
     icon: 'mdi:coffee'
   },
   {
     id: 'hot-drinks',
-    title: 'HOT DRINKS BAR',
+    titleKey: 'hot_drinks',
     icon: 'mdi:coffee-outline'
   }
 ];

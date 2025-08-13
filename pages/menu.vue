@@ -19,7 +19,7 @@
       >
         <!-- Category Title -->
         <div class="category-title" :data-category="category.id">
-          <h2>{{ category.title }}</h2>
+          <h2>{{ $t(category.titleKey) }}</h2>
         </div>
 
         <!-- Menu Items -->

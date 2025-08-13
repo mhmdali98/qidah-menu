@@ -1,0 +1,101 @@
+/* RTL Support Styles */
+
+[dir="rtl"] .header-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-icon {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+[dir="rtl"] .category-navigation .nav-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .category-navigation .nav-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-dialog .search-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-dialog .search-input-container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .meal-dialog .close-button {
+  left: 20px;
+  right: auto;
+}
+
+[dir="rtl"] .category-tabs {
+  flex-direction: row-reverse;
+}
+
+/* RTL for form elements */
+[dir="rtl"] .form-input,
+[dir="rtl"] .form-textarea,
+[dir="rtl"] .form-select {
+  text-align: right;
+}
+
+/* RTL for buttons */
+[dir="rtl"] .btn {
+  flex-direction: row-reverse;
+}
+
+/* RTL for dropdowns */
+[dir="rtl"] .dropdown ul {
+  text-align: right;
+}
+
+/* RTL for tables */
+[dir="rtl"] table th,
+[dir="rtl"] table td {
+  text-align: right;
+}
+
+/* RTL for navigation */
+[dir="rtl"] .sidebar .nav-item > a {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .horizontal-menu .nav-link {
+  flex-direction: row-reverse;
+}
+
+/* RTL for icons and text alignment */
+[dir="rtl"] .icon-text {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .info-item {
+  flex-direction: row-reverse;
+}
+
+/* RTL for search results */
+[dir="rtl"] .search-results {
+  text-align: right;
+}
+
+/* RTL for category cards */
+[dir="rtl"] .category-card {
+  text-align: center;
+}
+
+/* RTL for menu items */
+[dir="rtl"] .menu-item-card {
+  text-align: right;
+}
+
+/* RTL for dialog content */
+[dir="rtl"] .meal-dialog .content-section {
+  text-align: right;
+}
+
+/* RTL for language switcher */
+[dir="rtl"] .language-switcher {
+  flex-direction: row-reverse;
+}
