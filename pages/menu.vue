@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-page">
+  <div class="menu-page ">
     <!-- Category Navigation -->
     <CategoryNavigation
       :selected-category="activeCategory"
@@ -211,6 +211,9 @@ onUnmounted(() => {
 });
 </script>
 
-<style>
+<style >
 @import '~/assets/css/menu.css';
+.bbb{
+    background-color: #031c12 !important;
+}
 </style>

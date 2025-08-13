@@ -31,7 +31,7 @@ defineEmits<{
 
 <style scoped>
 .menu-item-card {
-  background: #3e664b;
+  background: #ffffff2a;
   border-radius: 15px;
   padding: 15px;
   margin-bottom: 15px;

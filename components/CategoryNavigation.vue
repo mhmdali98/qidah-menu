@@ -14,13 +14,17 @@
         </button>
       </div>
     </div>
-    
+
     <div class="category-tabs-container">
       <div class="category-tabs" ref="tabsContainer">
         <button
           v-for="category in categories"
           :key="category.id"
-          :ref="el => { if (el) categoryRefs[category.id] = el }"
+          :ref="
+            (el) => {
+              if (el) categoryRefs[category.id] = el;
+            }
+          "
           class="category-tab"
           :class="{ active: selectedCategory === category.id }"
           @click="$emit('select-category', category.id)"
@@ -30,10 +34,10 @@
         </button>
       </div>
     </div>
-    
+
     <!-- Search Dialog -->
-    <SearchDialog 
-      :is-open="isSearchOpen" 
+    <SearchDialog
+      :is-open="isSearchOpen"
       @close="closeSearch"
       @item-click="handleItemClick"
     />
@@ -41,19 +45,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue';
-import { categories } from '~/data/categories';
-import type { MenuItem } from '~/data/menuItems';
+import { ref, watch, nextTick } from "vue";
+import { categories } from "~/data/categories";
+import type { MenuItem } from "~/data/menuItems";
 
 interface Props {
   selectedCategory: string;
 }
 
 interface Emits {
-  'back-to-categories': [];
-  'scroll-to-top': [];
-  'select-category': [categoryId: string];
-  'item-click': [item: MenuItem];
+  "back-to-categories": [];
+  "scroll-to-top": [];
+  "select-category": [categoryId: string];
+  "item-click": [item: MenuItem];
 }
 
 const props = defineProps<Props>();
@@ -74,46 +78,50 @@ const closeSearch = () => {
 };
 
 const handleItemClick = (item: MenuItem) => {
-  emit('item-click', item);
+  emit("item-click", item);
   // Scroll to the item's category
-  emit('select-category', item.category);
+  emit("select-category", item.category);
 };
 
 // Watch for selected category changes and scroll to it
-watch(() => props.selectedCategory, async (newCategory: string) => {
-  await nextTick();
-  
-  // Clear previous timeout
-  if (scrollTimeout) {
-    clearTimeout(scrollTimeout);
-  }
-  
-  // Debounce the scroll to prevent rapid changes
-  scrollTimeout = setTimeout(() => {
-    scrollToActiveCategory(newCategory);
-  }, 150);
-}, { immediate: true });
+watch(
+  () => props.selectedCategory,
+  async (newCategory: string) => {
+    await nextTick();
+
+    // Clear previous timeout
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+
+    // Debounce the scroll to prevent rapid changes
+    scrollTimeout = setTimeout(() => {
+      scrollToActiveCategory(newCategory);
+    }, 150);
+  },
+  { immediate: true }
+);
 
 const scrollToActiveCategory = (categoryId: string) => {
   const activeTab = categoryRefs[categoryId];
   const container = tabsContainer.value;
-  
+
   if (activeTab && container) {
     const containerRect = container.getBoundingClientRect();
     const tabRect = activeTab.getBoundingClientRect();
-    
+
     // Calculate the center of the container
     const containerCenter = containerRect.left + containerRect.width / 2;
     const tabCenter = tabRect.left + tabRect.width / 2;
-    
+
     // Calculate the offset to center the tab
     const offset = tabCenter - containerCenter;
-    
+
     // Only scroll if the tab is not already centered (with some tolerance)
     if (Math.abs(offset) > 15) {
       container.scrollTo({
         left: container.scrollLeft + offset,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   }
@@ -146,7 +154,7 @@ const scrollToActiveCategory = (categoryId: string) => {
 .search-button {
   width: 35px;
   height: 35px;
-  background: #8B4513;
+  background: #7c6b43;
   border: none;
   border-radius: 50%;
   color: white;
@@ -158,14 +166,14 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .search-button:hover {
-  background: #A0522D;
+  background: #7c6b43;
 }
 
 .categories-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #8B4513;
+  background: #7c6b43;
   color: white;
   border: none;
   border-radius: 8px;
@@ -177,13 +185,13 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .categories-button:hover {
-  background: #A0522D;
+  background: #7c6b43;
 }
 
 .scroll-top-button {
   width: 35px;
   height: 35px;
-  background: #8B4513;
+  background: #7c6b43;
   border: none;
   border-radius: 50%;
   color: white;
@@ -195,7 +203,7 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .scroll-top-button:hover {
-  background: #A0522D;
+  background: #7c6b43;
 }
 
 .category-tabs-container {
@@ -237,32 +245,32 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .category-tab.active {
-  background: #8B4513;
+  background: #e67514;
 }
 
 @media (max-width: 480px) {
   .category-navigation {
     padding: 12px 15px;
   }
-  
+
   .nav-header {
     margin-bottom: 12px;
   }
-  
+
   .categories-button {
     padding: 6px 10px;
     font-size: 13px;
   }
-  
+
   .scroll-top-button {
     width: 32px;
     height: 32px;
   }
-  
+
   .category-tabs {
     gap: 8px;
   }
-  
+
   .category-tab {
     padding: 6px 10px;
     font-size: 11px;

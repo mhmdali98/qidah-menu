@@ -6,6 +6,7 @@
 
 .menu-content {
   padding-top: 20px;
+  padding-bottom: 1px;
 }
 
 .category-section {
@@ -112,7 +113,6 @@ html {
   transform: translateX(-50%);
   width: 20px;
   height: 2px;
-  background: #8B4513;
   border-radius: 1px;
   transition: all 0.3s ease;
 }
@@ -126,7 +126,6 @@ html {
   transform: translateX(-50%);
   width: 2px;
   height: 100%;
-  background: rgba(139, 69, 19, 0.3);
   pointer-events: none;
   z-index: 1;
 }
