@@ -31,7 +31,7 @@ defineEmits<{
 
 <style scoped>
 .menu-item-card {
-  background: #1a5f3c;
+  background: #3e664b;
   border-radius: 15px;
   padding: 15px;
   margin-bottom: 15px;
@@ -45,7 +45,7 @@ defineEmits<{
 .menu-item-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  background: #2d7a4f;
+  background: #3e664b;
 }
 
 .menu-item-card:active {
@@ -58,7 +58,7 @@ defineEmits<{
   height: 110px;
   border-radius: 10px;
   overflow: hidden;
-  background: #2d7a4f;
+  background: #3e664b;
 }
 
 .item-image {

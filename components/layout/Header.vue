@@ -5,15 +5,15 @@
   >
     <div class="shadow-sm">
       <div
-        class="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-[#0a0d12]"
+        class="relative flex w-full items-center bg-[#0d2515] px-5 py-2.5 dark:bg-[#0a0d12]"
       >
         <div
           class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden"
         >
           <NuxtLink to="/" class="main-logo flex shrink-0 items-center">
             <img
-              class="inline w-8 ltr:-ml-1 rtl:-mr-1"
-              src="/assets/images/logo.svg"
+              class="inline w-40 ltr:-ml-1 rtl:-mr-1"
+              src="/assets/images/favicon.png"
               alt=""
             />
             <span
@@ -35,7 +35,7 @@
           class="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2"
         >
           <!-- Theme Toggle -->
-          <div>
+          <!-- <div>
             <a
               href="javascript:;"
               v-show="store.theme === 'light'"
@@ -52,7 +52,7 @@
             >
               <IconifyIcon icon="lucide:moon" class="h-5 w-5" />
             </a>
-          </div>
+          </div> -->
 
           <!-- Language Toggle -->
           <div>

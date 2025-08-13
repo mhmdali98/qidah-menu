@@ -6,14 +6,14 @@
         <!--  BEGIN MAIN CONTAINER  -->
         <div class="relative">
             <!-- sidebar menu overlay -->
-            <div class="fixed inset-0 z-50 bg-[black]/60 lg:hidden" :class="{ hidden: !store.sidebar }" @click="store.toggleSidebar()"></div>
+            <!-- <div class="fixed inset-0 z-50 bg-[black]/60 lg:hidden" :class="{ hidden: !store.sidebar }" @click="store.toggleSidebar()"></div> -->
 
             <!-- screen loader -->
             <div
                 v-show="store.isShowMainLoader"
                 class="screen_loader animate__animated fixed inset-0 z-[60] grid place-content-center bg-[#fafafa] dark:bg-[#060818]"
             >
-                <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#4361ee">
+                <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#0B8435">
                     <path
                         d="M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z"
                     >
@@ -57,10 +57,10 @@
 
             <div class="main-container min-h-screen text-black dark:text-white-dark" :class="[store.navbar]">
                 <!--  BEGIN SIDEBAR  -->
-                <layout-sidebar />
+                <!-- <layout-sidebar /> -->
                 <!--  END SIDEBAR  -->
 
-                <div class="main-content flex min-h-screen flex-col">
+                <!-- <div class="main-content flex min-h-screen flex-col"> -->
                     <!--  BEGIN TOP NAVBAR  -->
                     <layout-header />
                     <!--  END TOP NAVBAR  -->
@@ -74,7 +74,7 @@
                     <!-- BEGIN FOOTER -->
                     <layout-footer />
                     <!-- END FOOTER -->
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

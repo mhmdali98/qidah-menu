@@ -134,7 +134,7 @@ watch(() => props.isOpen, (newValue: boolean) => {
 }
 
 .search-dialog {
-  background: #1a5f3c;
+  background: #3e664b;
   border-radius: 20px;
   width: 100%;
   max-width: 500px;
@@ -163,7 +163,7 @@ watch(() => props.isOpen, (newValue: boolean) => {
 }
 
 .search-icon {
-  color: #1a5f3c;
+  color: #3e664b;
   width: 20px;
   height: 20px;
 }
@@ -173,13 +173,13 @@ watch(() => props.isOpen, (newValue: boolean) => {
   background: transparent;
   border: none;
   outline: none;
-  color: #1a5f3c;
+  color: #3e664b;
   font-size: 16px;
   font-weight: 500;
 }
 
 .search-input::placeholder {
-  color: #1a5f3c;
+  color: #3e664b;
   opacity: 0.7;
 }
 

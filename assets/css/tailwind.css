@@ -63,12 +63,12 @@
     }
 
     body.dark {
-        @apply bg-[#060818];
+        @apply bg-[#031c12];
     }
 
     /* Panel */
     .panel {
-        @apply relative rounded-md bg-white p-5 shadow dark:bg-[#0e1726];
+        @apply relative rounded-md bg-white p-5 shadow dark:bg-[#031c12];
     }
 
     /* Navbar */
@@ -77,7 +77,7 @@
         @apply sticky top-0 z-20;
     }
     .navbar-floating header {
-        @apply bg-[#fafafa]/90 px-6 pt-4 dark:bg-[#060818]/90;
+        @apply bg-[#fafafa]/90 px-6 pt-4 dark:bg-[#031c12]/90;
     }
     .navbar-floating header > div > div:first-child {
         @apply rounded-md;
@@ -96,11 +96,11 @@
 
     .sidebar .nav-item > button,
     .sidebar .nav-item > a {
-        @apply mb-1 flex w-full items-center justify-between overflow-hidden whitespace-nowrap rounded-md p-2.5 text-[#506690] hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#181f32] dark:hover:text-white-dark;
+        @apply mb-1 flex w-full items-center justify-between overflow-hidden whitespace-nowrap rounded-md p-2.5 text-[#506690] hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#0B8435]/20 dark:hover:text-white-dark;
     }
     .sidebar .nav-item > button.active,
     .sidebar .nav-item > a.active {
-        @apply bg-[#000]/[0.08] text-black dark:bg-[#181f32] dark:text-white-dark;
+        @apply bg-[#000]/[0.08] text-black dark:bg-[#0B8435]/20 dark:text-white-dark;
     }
 
     .sidebar .nav-item > button.active > div > span,
@@ -154,15 +154,15 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     }
 
     .horizontal-menu .nav-link {
-        @apply flex items-center rounded-lg px-2 py-2.5 hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#181f32] dark:hover:text-white-dark xl:px-4;
+        @apply flex items-center rounded-lg px-2 py-2.5 hover:bg-[#000]/[0.08] hover:text-black dark:hover:bg-[#0B8435]/20 dark:hover:text-white-dark xl:px-4;
     }
 
     .horizontal-menu .nav-link.active {
-        @apply bg-[#000]/[0.08] text-black dark:bg-[#181f32] dark:text-white-dark;
+        @apply bg-[#000]/[0.08] text-black dark:bg-[#0B8435]/20 dark:text-white-dark;
     }
 
     .horizontal-menu ul.sub-menu {
-        @apply absolute top-full z-20 hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#1b2e4b] dark:text-white-dark;
+        @apply absolute top-full z-20 hidden min-w-[180px] rounded bg-white p-0 py-2 text-dark shadow dark:bg-[#031c12] dark:text-white-dark;
     }
 
     .horizontal-menu ul.sub-menu a {
@@ -331,7 +331,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     }
 
     .btn-gradient {
-        @apply bg-gradient-to-r from-[#EF1262] to-[#4361EE] text-white hover:from-[#4361EE] hover:to-[#EF1262];
+        @apply bg-gradient-to-r from-[#e67514] to-[#0B8435] text-white hover:from-[#0B8435] hover:to-[#e67514];
     }
 
     /* Badge */
@@ -432,7 +432,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     .form-radio,
     .form-checkbox {
         @apply h-5 w-5 cursor-pointer rounded border-2 border-[#e0e6ed] bg-transparent text-primary !shadow-none !outline-none !ring-0 !ring-offset-0 checked:bg-[length:90%_90%] disabled:cursor-not-allowed disabled:bg-[#eee] ltr:mr-1.5 rtl:ml-1.5
-      dark:border-[#253b5c] dark:checked:border-transparent dark:disabled:bg-[#1b2e4b];
+      dark:border-[#253b5c] dark:checked:border-transparent dark:disabled:bg-[#031c12];
     }
 
     .form-checkbox.outline-primary:checked {
@@ -499,7 +499,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     }
     .dropdown ul {
         /* @apply absolute z-10 mt-1 min-w-[120px] rounded bg-white p-0 py-2 shadow dark:bg-[#1b2e4b]; */
-        @apply my-1 min-w-[120px] rounded bg-white p-0 py-2 text-black shadow  dark:bg-[#1b2e4b] dark:text-white-dark;
+        @apply my-1 min-w-[120px] rounded bg-white p-0 py-2 text-black shadow  dark:bg-[#031c12] dark:text-white-dark;
     }
     .dropdown ul li > a,
     .dropdown ul li > button {
@@ -519,7 +519,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     }
     table thead tr,
     table tfoot tr {
-        @apply border-b-0 !bg-[#f6f8fa]  dark:!bg-[#1a2941];
+        @apply border-b-0 !bg-[#f6f8fa]  dark:!bg-[#0B8435]/10;
     }
     table thead tr th,
     table tfoot tr th,
@@ -534,10 +534,10 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
         @apply border-b !border-white-light/40 dark:!border-[#191e3a];
     }
     table.table-hover tbody tr {
-        @apply hover:!bg-white-light/20 dark:hover:!bg-[#1a2941]/40;
+        @apply hover:!bg-white-light/20 dark:hover:!bg-[#0B8435]/10;
     }
     table.table-striped tbody tr:nth-child(odd) {
-        @apply !bg-white-light/20 dark:!bg-[#1a2941]/40;
+        @apply !bg-white-light/20 dark:!bg-[#0B8435]/10;
     }
 
     table.dataTable-table tbody tr th,
@@ -627,7 +627,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
 }
 
 .apexcharts-canvas .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
-    @apply border-dark bg-[#060818];
+    @apply border-dark bg-[#031c12];
 }
 
 .apexcharts-legend-series {

@@ -16,7 +16,7 @@
 .meal-dialog {
   width: 100%;
   height: 85vh;
-  background: #1a5f3c;
+  background: #3e664b;
   border-radius: 20px 20px 0 0;
   position: relative;
   overflow: hidden;
@@ -72,7 +72,7 @@
 }
 
 .content-section {
-  background: #1a5f3c;
+  background: #3e664b;
   padding: 20px;
   border-radius: 20px 20px 0 0;
   margin-top: -20px;

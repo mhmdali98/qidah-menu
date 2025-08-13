@@ -1,7 +1,7 @@
 /* Categories Container Styles */
 .categories-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a5f3c 0%, #0d2d1b 100%);
+  background: #3e664b;
   padding: 20px;
   position: relative;
 }

@@ -1,9 +1,9 @@
 .tippy-box[data-theme~='primary'] {
-    background-color: #4361ee;
+    background-color: #0B8435;
 }
 
 .tippy-box[data-theme~='primary'][data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: #4361ee;
+    border-top-color: #0B8435;
 }
 
 .tippy-box[data-theme~='success'] {
@@ -39,11 +39,11 @@
 }
 
 .tippy-box[data-theme~='secondary'] {
-    background-color: #805dca;
+    background-color: #e67514;
 }
 
 .tippy-box[data-theme~='secondary'][data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: #805dca;
+    border-top-color: #e67514;
 }
 
 .tippy-box[data-theme~='dark'] {

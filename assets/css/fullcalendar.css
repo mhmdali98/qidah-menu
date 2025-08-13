@@ -80,8 +80,8 @@
 
 .calendar-wrapper .fc-button-primary,
 .calendar-wrapper .fc-button-primary:disabled {
-  color: #4361ee !important;
-  border-color: #4361ee !important;
+  color: #0B8435 !important;
+  border-color: #0B8435 !important;
   background: transparent !important;
   box-shadow: none !important;
   font-weight: 600 !important;
@@ -90,7 +90,7 @@
 
 .calendar-wrapper .fc-button-primary:not(:disabled):hover,
 .calendar-wrapper .fc-button-primary:not(:disabled).fc-button-active {
-  background-color: #4361ee !important;
+  background-color: #0B8435 !important;
   color: white !important;
 }
 
@@ -108,14 +108,14 @@
 
 .calendar-wrapper .fc-daygrid-event.primary,
 .calendar-wrapper .fc-timegrid-event.primary {
-  background-color: rgb(67 97 238 / 0.8);
-  border-color: rgb(67 97 238 / 0.8);
+  background-color: rgb(11 132 53 / 0.8);
+  border-color: rgb(11 132 53 / 0.8);
 }
 
 .calendar-wrapper .fc-daygrid-event.primary:hover,
 .calendar-wrapper .fc-timegrid-event.primary:hover {
-  background-color: #4361ee;
-  border-color: #4361ee;
+  background-color: #0B8435;
+  border-color: #0B8435;
 }
 
 .calendar-wrapper .fc-daygrid-event.success,
@@ -162,8 +162,8 @@
 .calendar-wrapper  .fc-button.fc-next-button:hover,
 .dark .calendar-wrapper  .fc-button.fc-prev-button:hover,
 .dark .calendar-wrapper  .fc-button.fc-next-button:hover {
-  color: #4361ee !important;
-  border-color: #4361ee !important;
+  color: #0B8435 !important;
+  border-color: #0B8435 !important;
   background: transparent !important;
 }
 
