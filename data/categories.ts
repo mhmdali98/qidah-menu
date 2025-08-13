@@ -36,7 +36,7 @@ export const categories: Category[] = [
   {
     id: 'kebabs-iranian',
     titleKey: 'kebabs_iranian',
-    icon: 'mdi:food-kebab'
+    icon: 'lucide-lab:kebab'
   },
   
   // Row 3
