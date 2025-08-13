@@ -40,6 +40,7 @@
           />
         </div>
         <div v-else class="recent-items">
+          <h3 class="recent-title">{{ $t('recent_items') }}</h3>
           <MenuItemCard
             v-for="item in recentItems"
             :key="item.id"
@@ -83,17 +84,93 @@ const recentItems = computed(() => menuItems.slice(0, 5));
 const filteredItems = computed(() => {
   if (!searchQuery.value.trim()) return [];
   
-  const query = searchQuery.value.toLowerCase();
-  return menuItems.filter(item => 
-    item.title.toLowerCase().includes(query) ||
-    item.description.toLowerCase().includes(query) ||
-    item.category.toLowerCase().includes(query)
-  );
+  const query = searchQuery.value.toLowerCase().trim();
+  
+  return menuItems.filter(item => {
+    // Search in title
+    const titleMatch = item.title.toLowerCase().includes(query);
+    
+    // Search in description
+    const descriptionMatch = item.description.toLowerCase().includes(query);
+    
+    // Search in category (convert category ID to readable text)
+    const categoryText = getCategoryText(item.category).toLowerCase();
+    const categoryMatch = categoryText.includes(query);
+    
+    // Search in Arabic equivalents
+    const arabicMatch = getArabicSearchText(item).toLowerCase().includes(query);
+    
+    return titleMatch || descriptionMatch || categoryMatch || arabicMatch;
+  });
 });
+
+// Helper function to get readable category text
+const getCategoryText = (categoryId: string): string => {
+  const categoryMap: Record<string, string> = {
+    'cold-appetizers': 'cold appetizers مقبلات باردة',
+    'hot-appetizers': 'hot appetizers مقبلات ساخنة',
+    'soups-salads': 'soups salads شوربات سلطات',
+    'western-grilled': 'western grilled أطباق غربية مشوية',
+    'seafood': 'seafood مأكولات بحرية',
+    'kebabs-iranian': 'kebabs iranian كباب إيراني',
+    'pizza': 'pizza بيتزا',
+    'burger-taco-pasta': 'burger taco pasta برجر تاكو باستا',
+    'special-makhtil': 'special makhtil مختلط خاص',
+    'mocktails': 'mocktails مشروبات غير كحولية',
+    'shakes': 'shakes شيك',
+    'smoothie': 'smoothie سموذي',
+    'natural-juices': 'natural juices عصائر طبيعية',
+    'cold-coffee': 'cold coffee قهوة باردة',
+    'hot-drinks': 'hot drinks مشروبات ساخنة'
+  };
+  
+  return categoryMap[categoryId] || categoryId;
+};
+
+// Helper function to get Arabic search text for items
+const getArabicSearchText = (item: MenuItem): string => {
+  const arabicMap: Record<string, string> = {
+    'yogurt-cucumber': 'زبادي خيار',
+    'spinach-borani': 'سبانخ بوراني',
+    'eggplant-borani': 'باذنجان بوراني',
+    'hummus': 'حمص',
+    'falafel': 'فلافل',
+    'baba-ganoush': 'بابا غنوج',
+    'lentil-soup': 'شوربة عدس',
+    'fattoush-salad': 'سلطة فتوش',
+    'grilled-steak': 'ستيك مشوي',
+    'chicken-breast': 'صدر دجاج مشوي',
+    'grilled-salmon': 'سلمون مشوي',
+    'shrimp-kebab': 'كباب روبيان',
+    'lamb-kebab': 'كباب لحم غنم',
+    'chicken-kebab': 'كباب دجاج',
+    'margherita-pizza': 'بيتزا مارجريتا',
+    'pepperoni-pizza': 'بيتزا بيبروني',
+    'classic-burger': 'برجر كلاسيك',
+    'chicken-taco': 'تاكو دجاج',
+    'special-drink': 'مشروب خاص',
+    'virgin-mojito': 'موهيتو بدون كحول',
+    'fruit-punch': 'عصير فواكه',
+    'chocolate-shake': 'شيك شوكولاتة',
+    'strawberry-shake': 'شيك فراولة',
+    'green-smoothie': 'سموذي أخضر',
+    'berry-smoothie': 'سموذي توت',
+    'orange-juice': 'عصير برتقال',
+    'pomegranate-juice': 'عصير رمان',
+    'iced-latte': 'لاتيه بارد',
+    'cold-brew': 'قهوة باردة',
+    'espresso': 'اسبريسو',
+    'cappuccino': 'كابتشينو'
+  };
+  
+  return arabicMap[item.id] || '';
+};
 
 // Handle search input
 const handleSearch = () => {
   // Search is handled automatically by computed property
+  // Add debouncing for better performance
+  console.log('Searching for:', searchQuery.value);
 };
 
 // Handle item click
