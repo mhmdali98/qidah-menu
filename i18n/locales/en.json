@@ -8,29 +8,21 @@
     "beverages": "Beverages",
     "calories": "calories",
     "sweet": "Sweet",
-    "footer_text": "Thank you for choosing Qidah Restaurant. We hope you enjoy your meal!",
-    
-    // Page titles and navigation
+    "footer_text": "Thank you for choosing Qidah Restaurant. We hope you enjoy your meal!",    
     "categories": "Categories",
     "back_to_categories": "Back to Categories",
     "scroll_to_top": "Scroll to Top",
     "search": "Search",
     "close": "Close",
-    "back": "Back",
-    
-    // Search dialog
+    "back": "Back",    
     "search_placeholder": "Search...",
     "search_title": "Qidah Menu",
     "no_search_results": "No search results found",
-    "recent_items": "Recent Items",
-    
-    // Meal detail dialog
+    "recent_items": "Recent Items",    
     "quick_preparation": "Quick Preparation",
     "rating": "Rating",
     "price": "Price",
     "description": "Description",
-    
-    // Categories
     "cold_appetizers": "Cold Appetizers",
     "hot_appetizers": "Hot Appetizers",
     "soups_salads": "Soups and Salads",
@@ -46,8 +38,6 @@
     "natural_juices": "Natural Seasonal Juices",
     "cold_coffee": "Cold Coffee Drinks",
     "hot_drinks": "Hot Drinks Bar",
-    
-    // Common actions
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
@@ -59,8 +49,6 @@
     "success": "Success",
     "warning": "Warning",
     "info": "Information",
-    
-    // Dashboard and navigation
     "dashboard": "Dashboard",
     "sales": "Sales",
     "analytics": "Analytics",

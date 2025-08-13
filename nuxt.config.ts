@@ -36,22 +36,16 @@ export default defineNuxtConfig({
     modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
 
     i18n: {
-            strategy: 'no_prefix',
-            defaultLocale: 'en',
-            locales: [
-                {
-                  code: 'en',
-                  dir: 'ltr',
-                  load: () => import('~/locales/en.json') // ✅ دالة بسيطة تُعيد Promise
-                },
-                {
-                  code: 'ar',
-                  dir: 'rtl',
-                  load: () => import('~/locales/ar.json') // ✅ نفس الشيء
-                }
-              ]
-        
-    },
+        defaultLocale: 'ar',
+        locales: [
+          { code: 'en', name: 'English', file: 'en.json', dir: 'ltr' },
+          { code: 'ar', name: 'العربية', file: 'ar.json', dir: 'rtl' }
+        ],
+        strategy: 'no_prefix', // يمكنك استخدام 'prefix' أو 'prefix_except_default' حسب الحاجة
+        lazy: true,
+        vueI18n: './i18n.config.ts'
+      },
+
     router: {
         options: { linkExactActiveClass: 'active' },
     },
