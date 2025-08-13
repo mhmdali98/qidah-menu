@@ -40,7 +40,6 @@
           />
         </div>
         <div v-else class="recent-items">
-          <h3 class="recent-title">{{ $t('recent_items') }}</h3>
           <MenuItemCard
             v-for="item in recentItems"
             :key="item.id"
@@ -154,7 +153,7 @@ watch(() => props.isOpen, (newValue: boolean) => {
 .search-input-container {
   flex: 1;
   position: relative;
-  background: #d4a574;
+  background: #e59e60;
   border-radius: 25px;
   padding: 12px 20px;
   display: flex;

@@ -154,7 +154,7 @@ const scrollToActiveCategory = (categoryId: string) => {
 .search-button {
   width: 35px;
   height: 35px;
-  background: #7c6b43;
+  background: #e59e60;
   border: none;
   border-radius: 50%;
   color: white;
@@ -166,14 +166,14 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .search-button:hover {
-  background: #7c6b43;
+  background: #e59e60;
 }
 
 .categories-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #7c6b43;
+  background: #e59e60;
   color: white;
   border: none;
   border-radius: 8px;
@@ -185,13 +185,13 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .categories-button:hover {
-  background: #7c6b43;
+  background: #e59e60;
 }
 
 .scroll-top-button {
   width: 35px;
   height: 35px;
-  background: #7c6b43;
+  background: #e59e60;
   border: none;
   border-radius: 50%;
   color: white;
@@ -203,7 +203,7 @@ const scrollToActiveCategory = (categoryId: string) => {
 }
 
 .scroll-top-button:hover {
-  background: #7c6b43;
+  background: #e59e60;
 }
 
 .category-tabs-container {
