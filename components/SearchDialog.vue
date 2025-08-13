@@ -58,7 +58,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue';
-import { menuItems, type MenuItem } from '~/data/menuItems';
+import { menuItems } from '~/data/menuItems';
+import type { MenuItem } from '~/data/menuItems';
 
 interface Props {
   isOpen: boolean;

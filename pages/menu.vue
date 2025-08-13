@@ -51,7 +51,8 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 import { categories } from '~/data/categories';
-import { menuItems, type MenuItem } from '~/data/menuItems';
+import { menuItems } from '~/data/menuItems';
+import type { MenuItem } from '~/data/menuItems';
 
 const route = useRoute();
 const activeCategory = ref('cold-appetizers');

@@ -36,14 +36,21 @@ export default defineNuxtConfig({
     modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
 
     i18n: {
-        locales: [
-            { code: 'en', file: 'en.json', dir: 'ltr' },
-            { code: 'ar', file: 'ar.json', dir: 'rtl' },
-        ],
-        lazy: true,
-        defaultLocale: 'en',
-        strategy: 'no_prefix',
-        langDir: 'locales/',
+            strategy: 'no_prefix',
+            defaultLocale: 'en',
+            locales: [
+                {
+                  code: 'en',
+                  dir: 'ltr',
+                  load: () => import('~/locales/en.json') // ✅ دالة بسيطة تُعيد Promise
+                },
+                {
+                  code: 'ar',
+                  dir: 'rtl',
+                  load: () => import('~/locales/ar.json') // ✅ نفس الشيء
+                }
+              ]
+        
     },
     router: {
         options: { linkExactActiveClass: 'active' },

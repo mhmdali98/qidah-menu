@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuItem } from '~/data/menuItems';
+import type { MenuItem } from '~/data/menuItems';
 
 interface Props {
   isOpen: boolean;
