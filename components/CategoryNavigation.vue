@@ -5,9 +5,14 @@
         <IconifyIcon icon="mdi:view-grid" class="w-5 h-5" />
         <span>Categories</span>
       </button>
-      <button class="scroll-top-button" @click="$emit('scroll-to-top')">
-        <IconifyIcon icon="mdi:chevron-up" class="w-5 h-5" />
-      </button>
+      <div class="nav-actions">
+        <button class="search-button" @click="openSearch">
+          <IconifyIcon icon="mdi:magnify" class="w-5 h-5" />
+        </button>
+        <button class="scroll-top-button" @click="$emit('scroll-to-top')">
+          <IconifyIcon icon="mdi:chevron-up" class="w-5 h-5" />
+        </button>
+      </div>
     </div>
     
     <div class="category-tabs-container">
@@ -25,31 +30,57 @@
         </button>
       </div>
     </div>
+    
+    <!-- Search Dialog -->
+    <SearchDialog 
+      :is-open="isSearchOpen" 
+      @close="closeSearch"
+      @item-click="handleItemClick"
+    />
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref, watch, nextTick } from 'vue';
 import { categories } from '~/data/categories';
+import type { MenuItem } from '~/data/menuItems';
 
 interface Props {
   selectedCategory: string;
 }
 
-const props = defineProps<Props>();
-
-defineEmits<{
+interface Emits {
   'back-to-categories': [];
   'scroll-to-top': [];
   'select-category': [categoryId: string];
-}>();
+  'item-click': [item: MenuItem];
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
 
 const tabsContainer = ref<HTMLElement>();
 const categoryRefs: Record<string, HTMLElement> = {};
-let scrollTimeout: number | null = null;
+const isSearchOpen = ref(false);
+let scrollTimeout: NodeJS.Timeout | null = null;
+
+// Search functions
+const openSearch = () => {
+  isSearchOpen.value = true;
+};
+
+const closeSearch = () => {
+  isSearchOpen.value = false;
+};
+
+const handleItemClick = (item: MenuItem) => {
+  emit('item-click', item);
+  // Scroll to the item's category
+  emit('select-category', item.category);
+};
 
 // Watch for selected category changes and scroll to it
-watch(() => props.selectedCategory, async (newCategory) => {
+watch(() => props.selectedCategory, async (newCategory: string) => {
   await nextTick();
   
   // Clear previous timeout
@@ -104,6 +135,30 @@ const scrollToActiveCategory = (categoryId: string) => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-button {
+  width: 35px;
+  height: 35px;
+  background: #8B4513;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background: #A0522D;
 }
 
 .categories-button {

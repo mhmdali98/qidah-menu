@@ -1,7 +1,10 @@
 <template>
   <div class="categories-container">
     <!-- Header -->
-    <CategoriesHeader @search="handleSearch" />
+    <CategoriesHeader 
+      @search="handleSearch" 
+      @item-click="handleItemClick"
+    />
 
     <!-- Categories Grid -->
     <div class="categories-grid">
@@ -17,15 +20,21 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { categories } from '~/data/categories';
 import { useCategories } from '~/composables/useCategories';
+import type { MenuItem } from '~/data/menuItems';
 
 const { handleSearch } = useCategories();
 
 const selectCategory = (categoryId: string) => {
   // Navigate to menu page and scroll to specific category
   navigateTo(`/menu#${categoryId}`);
+};
+
+const handleItemClick = (item: MenuItem) => {
+  // Navigate to menu page and scroll to the specific item's category
+  navigateTo(`/menu#${item.category}`);
 };
 </script>
 

@@ -6,6 +6,7 @@
       @back-to-categories="navigateToCategories"
       @scroll-to-top="scrollToTop"
       @select-category="scrollToCategory"
+      @item-click="handleItemClick"
     />
 
     <!-- Menu Content -->
@@ -91,6 +92,14 @@ const closeMealDialog = () => {
   selectedMeal.value = null;
   // Restore body scroll
   document.body.style.overflow = 'auto';
+};
+
+// Handle item click from search
+const handleItemClick = (item: MenuItem) => {
+  // Scroll to the item's category
+  scrollToCategory(item.category);
+  // Open the meal dialog
+  openMealDialog(item);
 };
 
 // Intersection Observer for tracking active category
