@@ -5,19 +5,33 @@
     @click="$emit('toggle-expansion', item)"
   >
     <div class="menu-item-image">
-      <img :src="item.image" :alt="item.title" class="item-image" />
+      <img :src="item.image" :alt="item.name_ar || item.name" class="item-image" />
+      <!-- Badges -->
+      <div v-if="item.best" class="badge best-badge">الأفضل</div>
+      <div v-if="item.today" class="badge today-badge">اليوم</div>
     </div>
     <div class="menu-item-content">
       <div class="item-header">
-        <h3 class="item-title">{{ item.title }}</h3>
-        <div class="item-price">{{ item.price }} IQD</div>
+        <h3 class="item-title">{{ item.name_ar || item.name }}</h3>
+        <div class="item-price">{{ formatPrice(item.price) }} IQD</div>
+      </div>
+
+      <!-- Rating -->
+      <div v-if="item.ratings_count > 0" class="item-rating">
+        <div class="stars">
+          <span v-for="i in 5" :key="i" class="star" :class="{ filled: i <= Math.round(item.average_rating) }">
+            ★
+          </span>
+        </div>
+        <span class="rating-text">({{ item.ratings_count }})</span>
       </div>
 
       <!-- Expanded Details -->
       <div v-if="isExpanded" class="expanded-details">
         <div class="details-divider"></div>
         <div class="additional-description">
-          <p>{{ item.description }}</p>
+          <p v-if="item.description_ar">{{ item.description_ar }}</p>
+          <p v-else-if="item.description">{{ item.description }}</p>
         </div>
       </div>
     </div>
@@ -25,17 +39,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { MenuItem } from "~/data/menuItems";
+import type { ApiMenuItem } from "~/types/menu";
 
 interface Props {
-  item: MenuItem;
+  item: ApiMenuItem;
   isExpanded: boolean;
 }
 
 defineProps<Props>();
 defineEmits<{
-  'toggle-expansion': [item: MenuItem];
+  'toggle-expansion': [item: ApiMenuItem];
 }>();
+
+const formatPrice = (price: number) => {
+  return price.toLocaleString('ar-EG');
+};
 </script>
 
 <style scoped>
@@ -49,6 +67,7 @@ defineEmits<{
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .menu-item-card:hover {
@@ -71,12 +90,33 @@ defineEmits<{
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
 }
 
 .item-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+}
+
+.best-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.today-badge {
+  background: linear-gradient(135deg, #26de81, #20bf6b);
 }
 
 .menu-item-content {
@@ -109,6 +149,33 @@ defineEmits<{
   margin: 0;
   text-align: left;
   direction: ltr;
+}
+
+.item-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  color: #ddd;
+  font-size: 16px;
+}
+
+.star.filled {
+  color: #ffd700;
+}
+
+.rating-text {
+  font-size: 12px;
+  color: #666;
 }
 
 .expanded-details {

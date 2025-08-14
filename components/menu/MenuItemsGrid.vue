@@ -2,10 +2,10 @@
   <div class="menu-items-container">
     <div class="menu-items-grid">
       <MenuItemCard
-        v-for="(item, index) in items"
-        :key="index"
+        v-for="item in items"
+        :key="item.id"
         :item="item"
-        :is-expanded="expandedItem === item.id"
+        :is-expanded="expandedItem === item.id.toString()"
         @toggle-expansion="handleToggleExpansion"
       />
     </div>
@@ -13,19 +13,19 @@
 </template>
 
 <script lang="ts" setup>
-import type { MenuItem } from "~/data/menuItems";
+import type { ApiMenuItem } from "~/types/menu";
 
 interface Props {
-  items: MenuItem[];
+  items: ApiMenuItem[];
   expandedItem: string | null;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits<{
-  'toggle-expansion': [item: MenuItem];
+  'toggle-expansion': [item: ApiMenuItem];
 }>();
 
-const handleToggleExpansion = (item: MenuItem) => {
+const handleToggleExpansion = (item: ApiMenuItem) => {
   emit('toggle-expansion', item);
 };
 </script>

@@ -26,6 +26,12 @@ export default defineNuxtConfig({
         },
     },
 
+    runtimeConfig: {
+        public: {
+            apiBase: 'http://app.qidah.net/api'
+        }
+    },
+
     css: ['~/assets/css/app.css'],
     postcss: {
         plugins: {

@@ -1,11 +1,14 @@
 // Types for menu components
 export interface MenuItem {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
+  name_ar: string;
   description: string;
+  description_ar: string;
   price: number;
   image: string;
   category: string;
+  available: boolean;
 }
 
 export interface Category {
@@ -26,6 +29,36 @@ export interface MenuItemCardProps {
 export interface MenuItemsGridProps {
   items: MenuItem[];
   expandedItem: string | null;
+}
+
+export interface ApiCategory {
+  id: number;
+  name: string;
+  name_ar: string;
+  items_count: number;
+  image: string;
+}
+
+export interface ApiCategoriesResponse {
+  categories: ApiCategory[];
+}
+
+export interface ApiMenuItem {
+  id: number;
+  name: string;
+  name_ar: string;
+  description: string;
+  description_ar: string;
+  image: string;
+  price: number;
+  best: boolean;
+  today: boolean;
+  ratings_count: number;
+  average_rating: number;
+}
+
+export interface ApiMenuItemsResponse {
+  items: ApiMenuItem[];
 }
 
 // Events
