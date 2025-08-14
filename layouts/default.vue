@@ -62,7 +62,7 @@
 
                 <!-- <div class="main-content flex min-h-screen flex-col"> -->
                     <!--  BEGIN TOP NAVBAR  -->
-                    <layout-header />
+                    <!-- <layout-header /> -->
                     <!--  END TOP NAVBAR  -->
 
                     <!--  BEGIN CONTENT AREA  -->
