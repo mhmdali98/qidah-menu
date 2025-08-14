@@ -17,14 +17,14 @@
       </div>
 
       <!-- Rating -->
-      <div v-if="item.ratings_count > 0" class="item-rating">
+      <!-- <div v-if="item.ratings_count > 0" class="item-rating">
         <div class="stars">
           <span v-for="i in 5" :key="i" class="star" :class="{ filled: i <= Math.round(item.average_rating) }">
             ★
           </span>
         </div>
         <span class="rating-text">({{ item.ratings_count }})</span>
-      </div>
+      </div> -->
 
       <!-- Expanded Details -->
       <div v-if="isExpanded" class="expanded-details">
