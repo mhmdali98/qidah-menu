@@ -1,12 +1,30 @@
 /* Menu Page Styles */
 .menu-page {
   min-height: 100vh;
-  background: #3e664b;
+  background: #ffffff;
+  padding: 20px;
 }
 
 .menu-content {
   padding-top: 20px;
   padding-bottom: 1px;
+}
+
+.search-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-icon:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .category-section {

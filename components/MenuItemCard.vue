@@ -4,9 +4,11 @@
       <img :src="image" :alt="title" class="item-image" />
     </div>
     <div class="menu-item-content">
-      <h3 class="item-title">{{ title }}</h3>
+      <div class="item-header">
+        <h3 class="item-title">{{ title }}</h3>
+        <div class="item-price"><b>{{ price }}</b> IQD</div>
+      </div>
       <p class="item-description">{{ description }}</p>
-      <div class="item-price"><b>{{ price }}</b> IQD</div>
     </div>
   </div>
 </template>
@@ -74,12 +76,23 @@ defineEmits<{
   justify-content: space-between;
 }
 
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  direction: rtl;
+}
+
 .item-title {
   color: white;
   font-size: 18px;
   font-weight: 800;
-  margin: 0 0 8px 0;
+  margin: 0;
   line-height: 1.3;
+  direction: rtl;
+  text-align: right;
+  flex: 1;
 }
 
 .item-description {
@@ -94,6 +107,8 @@ defineEmits<{
   font-size: 16px;
   font-weight: 600;
   margin: 0;
+  text-align: left;
+  direction: ltr;
 }
 
 @media (max-width: 480px) {

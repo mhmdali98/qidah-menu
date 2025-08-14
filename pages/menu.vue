@@ -1,220 +1,412 @@
 <template>
-  <div class="menu-page ">
-    <!-- Category Navigation -->
-    <CategoryNavigation
-      :selected-category="activeCategory"
-      @back-to-categories="navigateToCategories"
-      @scroll-to-top="scrollToTop"
-      @select-category="scrollToCategory"
-      @item-click="handleItemClick"
-    />
+  <div class="menu-page">
+    <!-- Header -->
+    <CategoriesHeader @search="handleSearch" @item-click="handleItemClick" />
 
-    <!-- Menu Content -->
-    <div class="menu-content">
-      <div
-        v-for="category in categories"
-        :key="category.id"
-        :id="category.id"
-        class="category-section"
-      >
-        <!-- Category Title -->
-        <div class="category-title" :data-category="category.id">
-          <h2>{{ $t(category.titleKey) }}</h2>
-        </div>
+    <!-- Category Header with Back Button -->
+    <div style="text-align: center">
+      <button class="back-button" @click="goBack">
+        <span>الرجوع للقائمة</span>
+        <IconifyIcon icon="mdi:arrow-left" class="back-icon" />
+      </button>
+    </div>
+    <div style="text-align: center">
+      <h1 class="category-title-main">
+        {{ $t(currentCategory?.titleKey || "") }}
+      </h1>
+    </div>
 
-        <!-- Menu Items -->
-        <div class="menu-items-container">
-          <MenuItemCard
-            v-for="item in getCategoryItems(category.id)"
-            :key="item.id"
-            :title="item.title"
-            :description="item.description"
-            :price="item.price"
-            :image="item.image"
-            :item="item"
-            @click="openMealDialog"
-          />
+    <!-- Horizontal Menu Items Display -->
+    <div class="menu-items-container">
+      <div class="menu-items-grid">
+        <div
+          v-for="(item, index) in currentCategoryItems"
+          :key="index"
+          class="menu-item-card"
+          :class="{ expanded: expandedItem === item.id }"
+          @click="toggleItemExpansion(item)"
+        >
+          <div class="menu-item-image">
+            <img :src="item.image" :alt="item.title" class="item-image" />
+          </div>
+          <div class="menu-item-content">
+            <div class="item-header">
+              <h3 class="item-title">{{ item.title }}</h3>
+              <div class="item-price">{{ item.price }} IQD</div>
+            </div>
+
+            <!-- Expanded Details -->
+            <div v-if="expandedItem === item.id" class="">
+              <div class="details-divider"></div>
+
+              <!-- Additional Description -->
+              <div class="additional-description">
+                <p>{{ item.description }}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Meal Detail Dialog -->
-    <MealDetailDialog
-      :is-open="isDialogOpen"
-      :meal="selectedMeal"
-      @close="closeMealDialog"
-    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
-import { useRoute } from 'vue-router';
-import { categories } from '~/data/categories';
-import { menuItems } from '~/data/menuItems';
-import type { MenuItem } from '~/data/menuItems';
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { categories } from "~/data/categories";
+import { menuItems } from "~/data/menuItems";
+import type { MenuItem } from "~/data/menuItems";
 
 const route = useRoute();
-const activeCategory = ref('cold-appetizers');
-const isDialogOpen = ref(false);
-const selectedMeal = ref<MenuItem | null>(null);
+const router = useRouter();
+const expandedItem = ref<string | null>(null);
 
-// Get items for a specific category
-const getCategoryItems = (categoryId: string) => {
-  return menuItems.filter(item => item.category === categoryId);
+// Get category from route hash or default to first category
+const currentCategoryId = computed(() => {
+  const hash = route.hash.replace("#", "");
+  return hash || categories[0]?.id || "";
+});
+
+// Get current category
+const currentCategory = computed(() => {
+  return categories.find((cat) => cat.id === currentCategoryId.value);
+});
+
+// Get items for current category
+const currentCategoryItems = computed(() => {
+  return menuItems.filter((item) => item.category === currentCategoryId.value);
+});
+
+// Handle search from header
+const handleSearch = (query: string) => {
+  // TODO: Implement search functionality
+  console.log("Search query:", query);
 };
 
-// Navigation functions
-const navigateToCategories = () => {
-  navigateTo('/');
-};
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-const scrollToCategory = (categoryId: string) => {
-  const element = document.getElementById(categoryId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-// Dialog functions
-const openMealDialog = (meal: MenuItem) => {
-  selectedMeal.value = meal;
-  isDialogOpen.value = true;
-  // Prevent body scroll when dialog is open
-  document.body.style.overflow = 'hidden';
-};
-
-const closeMealDialog = () => {
-  isDialogOpen.value = false;
-  selectedMeal.value = null;
-  // Restore body scroll
-  document.body.style.overflow = 'auto';
-};
-
-// Handle item click from search
+// Handle item click from header
 const handleItemClick = (item: MenuItem) => {
-  // Scroll to the item's category
-  scrollToCategory(item.category);
-  // Open the meal dialog
-  openMealDialog(item);
+  // Navigate to the specific category of the clicked item
+  navigateTo(`/menu#${item.category}`);
 };
 
-// Intersection Observer for tracking active category
-let observer: IntersectionObserver | null = null;
-let scrollTimeout: number | null = null;
-
-const setupIntersectionObserver = () => {
-  observer = new IntersectionObserver(
-    (entries) => {
-      // Clear previous timeout
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      // Debounce the category update to prevent flickering
-      scrollTimeout = setTimeout(() => {
-        const visibleCategories = entries
-          .filter(entry => entry.isIntersecting)
-          .map(entry => ({
-            id: entry.target.id,
-            rect: entry.boundingClientRect,
-            intersectionRatio: entry.intersectionRatio
-          }))
-          .filter(cat => cat.intersectionRatio > 0.1); // Only consider significantly visible categories
-
-        if (visibleCategories.length === 0) return;
-
-        // Find the category title that's most visible in the upper part of the screen
-        const navHeight = 120; // Approximate height of CategoryNavigation
-        const viewportHeight = window.innerHeight;
-        const upperThreshold = navHeight + (viewportHeight - navHeight) * 0.3; // 30% of remaining viewport
-
-        let bestCategory = visibleCategories[0];
-        let bestScore = 0;
-
-        visibleCategories.forEach(category => {
-          const titleElement = document.querySelector(`[data-category="${category.id}"]`);
-          if (titleElement) {
-            const titleRect = titleElement.getBoundingClientRect();
-            
-            // Check if the title is in the upper part of the screen
-            if (titleRect.top >= navHeight && titleRect.bottom <= upperThreshold) {
-              // Calculate score based on visibility and position
-              const visibilityScore = category.intersectionRatio;
-              const positionScore = 1 - Math.abs(titleRect.top - navHeight) / (upperThreshold - navHeight);
-              const totalScore = visibilityScore * 0.7 + positionScore * 0.3;
-              
-              if (totalScore > bestScore) {
-                bestScore = totalScore;
-                bestCategory = category;
-              }
-            }
-          }
-        });
-
-        // Update active category if it changed
-        if (bestCategory && bestCategory.id !== activeCategory.value) {
-          activeCategory.value = bestCategory.id;
-        }
-      }, 100); // 100ms debounce
-    },
-    {
-      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-      rootMargin: '-120px 0px -50% 0px' // Account for navigation height
-    }
-  );
-
-  // Observe all category sections
-  categories.forEach(category => {
-    const element = document.getElementById(category.id);
-    if (element && observer) {
-      observer.observe(element);
-    }
-  });
+// Go back to main menu
+const goBack = () => {
+  router.push("/");
 };
 
-const cleanupIntersectionObserver = () => {
-  if (observer) {
-    observer.disconnect();
-  }
-  if (scrollTimeout) {
-    clearTimeout(scrollTimeout);
+// Toggle item expansion
+const toggleItemExpansion = (item: MenuItem) => {
+  if (expandedItem.value === item.id) {
+    expandedItem.value = null;
+  } else {
+    expandedItem.value = item.id;
   }
 };
 
-// Handle initial scroll to category from URL hash
-const handleInitialScroll = () => {
-  const hash = route.hash.replace('#', '');
-  if (hash && categories.some(cat => cat.id === hash)) {
-    activeCategory.value = hash;
-    nextTick(() => {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
+// Close expansion
+const closeExpansion = () => {
+  expandedItem.value = null;
+};
+
+// Handle initial category from URL
+const handleInitialSetup = () => {
+  const hash = route.hash.replace("#", "");
+  if (hash && categories.some((cat) => cat.id === hash)) {
+    // Category is already set via computed
   }
 };
 
 onMounted(() => {
-  setupIntersectionObserver();
-  handleInitialScroll();
-});
-
-onUnmounted(() => {
-  cleanupIntersectionObserver();
-  // Ensure body scroll is restored
-  document.body.style.overflow = 'auto';
+  handleInitialSetup();
 });
 </script>
 
-<style >
-@import '~/assets/css/menu.css';
-.bbb{
-    background-color: #031c12 !important;
+<style>
+@import "~/assets/css/menu.css";
+
+/* Menu Page Styles */
+.menu-page {
+  min-height: 100vh;
+  background: #ffffff;
+  text-align: center;
+}
+
+/* Category Header Styles */
+.category-header {
+  background: #06923e;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #199a4c;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.category-title-main {
+  color: #199a4c;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+/* Menu Items Container */
+.menu-items-container {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+
+/* Menu Item Card */
+.menu-item-card {
+  background: white;
+  border: 2px solid #06923e;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item-card.expanded {
+  max-width: 450px;
+  transform: scale(1.02);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.menu-item-image {
+  width: 100%;
+  height: 200px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-item-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  direction: rtl;
+}
+
+.item-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  direction: rtl;
+  text-align: right;
+  flex: 1;
+}
+
+.item-description {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  direction: rtl;
+  text-align: center;
+}
+
+.item-price {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+  direction: ltr;
+}
+
+/* Expanded Details */
+.expanded-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.details-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #06923e, transparent);
+  margin: 15px 0;
+}
+
+.details-info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+.additional-description {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.additional-description p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0;
+  direction: rtl;
+}
+
+.close-expansion-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #199a4c;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin: 15px auto 0;
+}
+
+.close-expansion-button:hover {
+  background: #158a42;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .menu-items-container {
+    padding: 20px 15px;
+  }
+
+  .menu-items-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .menu-item-card {
+    max-width: 300px;
+  }
+
+  .menu-item-card.expanded {
+    max-width: 350px;
+  }
+
+  .menu-item-image {
+    height: 180px;
+  }
+
+  .menu-item-content {
+    padding: 15px;
+  }
+
+  .item-title {
+    font-size: 16px;
+  }
+
+  .details-info {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-items-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .menu-item-card {
+    max-width: 100%;
+  }
+
+  .menu-item-card.expanded {
+    max-width: 100%;
+  }
+
+  .menu-item-image {
+    height: 160px;
+  }
+}
+
+.bbb {
+  background-color: #031c12 !important;
 }
 </style>
