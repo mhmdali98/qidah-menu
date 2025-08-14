@@ -28,7 +28,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            apiBase: 'http://app.qidah.net/api'
+            apiBase: '/api'
         }
     },
 

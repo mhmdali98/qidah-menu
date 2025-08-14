@@ -8,7 +8,7 @@ export const useApi = () => {
 
   const fetchCategories = async (search?: string): Promise<ApiCategory[]> => {
     try {
-      const url = new URL(`${apiBase}/v1/menus/1/categories`);
+      const url = new URL(`${config.public.apiBase}/v1/menus/1/categories`, window.location.origin);
       if (search) {
         url.searchParams.append('search', search);
       }
