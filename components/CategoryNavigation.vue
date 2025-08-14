@@ -30,7 +30,7 @@
           @click="$emit('select-category', category.id)"
         >
           <IconifyIcon :icon="category.icon" class="w-5 h-5" />
-          <span>{{ $t(category.titleKey) }}</span>
+          <span class="text-sm">{{ $t(category.titleKey) }}</span>
         </button>
       </div>
     </div>
