@@ -1,24 +1,28 @@
-export async function handler(event, context) {
+export async function handler(event) {
     try {
-      // رابط API الـHTTP (غيّره حسب حاجتك)
-      const apiUrl = "http://app.qidah.net/api";
+      const path = event.rawUrl.split('/.netlify/functions/api-proxy')[1] || '';
+      const targetUrl = `http://app.qidah.net/api${path}`;
   
-      // جلب البيانات من API
-      const response = await fetch(apiUrl);
-      const data = await response.text(); // أو .json() لو البيانات JSON
+      const response = await fetch(targetUrl, {
+        method: event.httpMethod,
+        headers: event.headers,
+        body: event.body
+      });
+  
+      const body = await response.text();
   
       return {
-        statusCode: 200,
-        body: data,
+        statusCode: response.status,
+        body,
         headers: {
-          "Content-Type": "application/json", // عدل لو نوع مختلف
-          "Access-Control-Allow-Origin": "*", // للسماح من أي دومين
-        },
+          'Content-Type': response.headers.get('content-type') || 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
       };
     } catch (error) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: error.message }),
+        body: JSON.stringify({ error: error.message })
       };
     }
   }
