@@ -6,11 +6,11 @@
       @item-click="handleItemClick"
     />
 
-    <CategoryNavigation
+    <!-- <CategoryNavigation
       :selected-category="selectedCategory"
       @select-category="scrollToCategory"
       @item-click="handleItemClick"
-    />
+    /> -->
 
     <!-- Loading State -->
     <div v-if="loading" class="loading-container">

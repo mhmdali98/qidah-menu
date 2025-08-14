@@ -1,6 +1,5 @@
 <template>
   <div class="category-card" @click="$emit('select', category)">
-    <img :src="`/reg/img${randomNumber}.svg`" alt="Category Icon" class="category-reg" />
     <div class="category-icon">
       <img v-if="image" :src="image" :alt="title" class="category-image" />
       <IconifyIcon v-else :icon="icon || 'mdi:food'" class="w-16 h-16" />
