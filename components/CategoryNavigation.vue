@@ -1,36 +1,15 @@
 <template>
   <div class="category-navigation">
-    <div class="nav-header">
-      <button class="categories-button" @click="$emit('back-to-categories')">
-        <IconifyIcon icon="mdi:view-grid" class="w-5 h-5" />
-        <span>{{ $t('categories') }}</span>
-      </button>
-      <div class="nav-actions">
-        <button class="search-button" @click="openSearch">
-          <IconifyIcon icon="mdi:magnify" class="w-5 h-5" />
-        </button>
-        <button class="scroll-top-button" @click="$emit('scroll-to-top')">
-          <IconifyIcon icon="mdi:chevron-up" class="w-5 h-5" />
-        </button>
-      </div>
-    </div>
-
-    <div class="category-tabs-container">
-      <div class="category-tabs" ref="tabsContainer">
+    <div class="category-buttons-container">
+      <div class="category-buttons" ref="buttonsContainer">
         <button
-          v-for="category in categories"
+          v-for="category in mainCategories"
           :key="category.id"
-          :ref="
-            (el) => {
-              if (el) categoryRefs[category.id] = el;
-            }
-          "
-          class="category-tab"
-          :class="{ active: selectedCategory === category.id }"
-          @click="$emit('select-category', category.id)"
+          class="category-button"
+          :class="getCategoryButtonClass(category.id)"
+          @click="handleCategoryClick(category.id)"
         >
-          <IconifyIcon :icon="category.icon" class="w-5 h-5" />
-          <span class="text-sm">{{ $t(category.titleKey) }}</span>
+          <span class="category-text-nav ">{{ category.title }}</span>
         </button>
       </div>
     </div>
@@ -45,8 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from "vue";
-import { categories } from "~/data/categories";
+import { ref } from "vue";
 import type { MenuItem } from "~/data/menuItems";
 
 interface Props {
@@ -63,10 +41,32 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const tabsContainer = ref<HTMLElement>();
-const categoryRefs: Record<string, HTMLElement> = {};
 const isSearchOpen = ref(false);
-let scrollTimeout: NodeJS.Timeout | null = null;
+const buttonsContainer = ref<HTMLElement>();
+
+// Define the main categories based on the image
+const mainCategories = [
+  {
+    id: 'salads',
+    title: 'السلطات'
+  },
+  {
+    id: 'appetizers',
+    title: 'مقبلات'
+  },
+  {
+    id: 'meat',
+    title: 'لحم'
+  },
+  {
+    id: 'chicken',
+    title: 'دجاج'
+  },
+  {
+    id: 'seafood',
+    title: 'بحريات'
+  }
+];
 
 // Search functions
 const openSearch = () => {
@@ -79,201 +79,137 @@ const closeSearch = () => {
 
 const handleItemClick = (item: MenuItem) => {
   emit("item-click", item);
-  // Scroll to the item's category
   emit("select-category", item.category);
 };
 
-// Watch for selected category changes and scroll to it
-watch(
-  () => props.selectedCategory,
-  async (newCategory: string) => {
-    await nextTick();
+const handleCategoryClick = (categoryId: string) => {
+  emit("select-category", categoryId);
+};
 
-    // Clear previous timeout
-    if (scrollTimeout) {
-      clearTimeout(scrollTimeout);
-    }
-
-    // Debounce the scroll to prevent rapid changes
-    scrollTimeout = setTimeout(() => {
-      scrollToActiveCategory(newCategory);
-    }, 150);
-  },
-  { immediate: true }
-);
-
-const scrollToActiveCategory = (categoryId: string) => {
-  const activeTab = categoryRefs[categoryId];
-  const container = tabsContainer.value;
-
-  if (activeTab && container) {
-    const containerRect = container.getBoundingClientRect();
-    const tabRect = activeTab.getBoundingClientRect();
-
-    // Calculate the center of the container
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const tabCenter = tabRect.left + tabRect.width / 2;
-
-    // Calculate the offset to center the tab
-    const offset = tabCenter - containerCenter;
-
-    // Only scroll if the tab is not already centered (with some tolerance)
-    if (Math.abs(offset) > 15) {
-      container.scrollTo({
-        left: container.scrollLeft + offset,
-        behavior: "smooth",
-      });
-    }
-  }
+const getCategoryButtonClass = (categoryId: string) => {
+  const baseClass = 'category-button';
+  const activeClass = props.selectedCategory === categoryId ? 'active' : '';
+  
+  // Define color classes for each category based on the image
+  const colorClasses: Record<string, string> = {
+    'salads': 'category-salads',
+    'appetizers': 'category-appetizers', 
+    'meat': 'category-meat',
+    'chicken': 'category-chicken',
+    'seafood': 'category-seafood'
+  };
+  
+  return `${baseClass} ${colorClasses[categoryId] || ''} ${activeClass}`;
 };
 </script>
 
 <style scoped>
 .category-navigation {
-  position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1;
   background: transparent;
-  padding: 15px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.nav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.search-button {
-  width: 35px;
-  height: 35px;
-  background: #e59e60;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.search-button:hover {
-  background: #e59e60;
-}
-
-.categories-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #e59e60;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.categories-button:hover {
-  background: #e59e60;
-}
-
-.scroll-top-button {
-  width: 35px;
-  height: 35px;
-  background: #e59e60;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.scroll-top-button:hover {
-  background: #e59e60;
-}
-
-.category-tabs-container {
+.category-buttons-container {
   overflow: hidden;
 }
 
-.category-tabs {
+.category-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
 
-.category-tabs::-webkit-scrollbar {
+.category-buttons::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
 
-.category-tab {
+.category-button {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  justify-content: center;
   border: none;
-  border-radius: 20px;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
 }
 
-.category-tab:hover {
-  background: rgba(255, 255, 255, 0.2);
+.category-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.category-tab.active {
-  background: #e67514;
+.category-button.active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 480px) {
-  .category-navigation {
-    padding: 12px 15px;
-  }
+.category-text-nav {
+  font-family: 'Cairo', 'Arial', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
 
-  .nav-header {
-    margin-bottom: 12px;
-  }
+/* Category-specific colors matching the image */
+.category-salads {
+  background: #ff6b35; /* Orange */
+  color: white;
+}
 
-  .categories-button {
-    padding: 6px 10px;
-    font-size: 13px;
-  }
+.category-appetizers {
+  background: #4caf50; /* Green */
+  color: white;
+}
 
-  .scroll-top-button {
-    width: 32px;
-    height: 32px;
-  }
+.category-meat {
+  background: #556b2f; /* Dark olive green */
+  color: white;
+}
 
-  .category-tabs {
+.category-chicken {
+  background: #d2691e; /* Brown-orange */
+  color: white;
+}
+
+.category-seafood {
+  background: #ffeb3b; /* Yellow */
+  color: #333;
+}
+
+@media (max-width: 768px) {
+
+
+  .category-buttons {
     gap: 8px;
   }
 
-  .category-tab {
-    padding: 6px 10px;
-    font-size: 11px;
+  .category-button {
+    padding: 10px 10px;
+    font-size: 13px;
+    min-width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-buttons {
+    gap: 6px;
+  }
+
+  .category-button {
+    padding: 5px 5px;
+    font-size: 10px;
+    min-width: 70px;
   }
 }
 </style>

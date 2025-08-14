@@ -6,6 +6,12 @@
       @item-click="handleItemClick"
     />
 
+    <CategoryNavigation
+      :selected-category="activeCategory"
+      @select-category="scrollToCategory"
+      @item-click="handleItemClick"
+    />
+
     <!-- Categories Grid -->
     <div class="categories-grid">
       <CategoryCard
@@ -35,6 +41,11 @@ const selectCategory = (categoryId: string) => {
 const handleItemClick = (item: MenuItem) => {
   // Navigate to menu page and scroll to the specific item's category
   navigateTo(`/menu#${item.category}`);
+};
+
+const scrollToCategory = (categoryId: string) => {
+  // Navigate to menu page and scroll to specific category
+  navigateTo(`/menu#${categoryId}`);
 };
 </script>
 

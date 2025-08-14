@@ -64,7 +64,7 @@ const handleSearch = () => {
 <style scoped>
 .header-container {
   background: white;
-  min-height: 200px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
