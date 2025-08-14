@@ -28,9 +28,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            apiBase: process.env.NODE_ENV === 'development'
-        ? 'http://app.qidah.net/api'
-        : '/.netlify/functions/api-proxy'
+            apiBase: 'http://app.qidah.net/api'
         }
     },
 
