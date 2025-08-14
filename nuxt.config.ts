@@ -28,7 +28,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            apiBase: '/.netlify/functions/api-proxy'
+            apiBase: 'http://app.qidah.net/api'
         }
     },
 
