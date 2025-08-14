@@ -133,7 +133,7 @@ const scrollToActiveCategory = (categoryId: string) => {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #3e664b;
+  background: transparent;
   padding: 15px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
