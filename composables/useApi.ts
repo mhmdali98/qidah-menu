@@ -25,7 +25,7 @@ export const useApi = () => {
 
   const fetchMenuItems = async (categoryId: number, search?: string): Promise<ApiMenuItem[]> => {
     try {
-      const url = new URL(`${apiBase}/v1/menus/1/categories/${categoryId}`);
+      const url = new URL(`${config.public.apiBase}/v1/menus/1/categories`, window.location.origin);
       if (search) {
         url.searchParams.append('search', search);
       }
