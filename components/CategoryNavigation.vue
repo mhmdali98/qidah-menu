@@ -9,17 +9,10 @@
           :class="getCategoryButtonClass(category.id)"
           @click="handleCategoryClick(category.id)"
         >
-          <span class="category-text-nav ">{{ category.title }}</span>
+          <span class="category-text-nav">{{ category.title }}</span>
         </button>
       </div>
     </div>
-
-    <!-- Search Dialog -->
-    <SearchDialog
-      :is-open="isSearchOpen"
-      @close="closeSearch"
-      @item-click="handleItemClick"
-    />
   </div>
 </template>
 
@@ -41,10 +34,9 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const isSearchOpen = ref(false);
 const buttonsContainer = ref<HTMLElement>();
 
-// Define the main categories based on the image
+// Define the main categories
 const mainCategories = [
   {
     id: 'salads',
@@ -68,15 +60,6 @@ const mainCategories = [
   }
 ];
 
-// Search functions
-const openSearch = () => {
-  isSearchOpen.value = true;
-};
-
-const closeSearch = () => {
-  isSearchOpen.value = false;
-};
-
 const handleItemClick = (item: MenuItem) => {
   emit("item-click", item);
   emit("select-category", item.category);
@@ -90,7 +73,7 @@ const getCategoryButtonClass = (categoryId: string) => {
   const baseClass = 'category-button';
   const activeClass = props.selectedCategory === categoryId ? 'active' : '';
   
-  // Define color classes for each category based on the image
+  // Define color classes for each category
   const colorClasses: Record<string, string> = {
     'salads': 'category-salads',
     'appetizers': 'category-appetizers', 
@@ -161,7 +144,7 @@ const getCategoryButtonClass = (categoryId: string) => {
   font-size: 18px;
 }
 
-/* Category-specific colors matching the image */
+/* Category-specific colors */
 .category-salads {
   background: #ff6b35; /* Orange */
   color: white;
@@ -188,8 +171,6 @@ const getCategoryButtonClass = (categoryId: string) => {
 }
 
 @media (max-width: 768px) {
-
-
   .category-buttons {
     gap: 8px;
   }

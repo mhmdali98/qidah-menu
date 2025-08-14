@@ -3,12 +3,8 @@
         class="main-section relative font-nunito text-sm font-normal antialiased"
         :class="[store.sidebar ? 'toggle-sidebar' : '', store.menu, store.layout, store.rtlClass]"
     >
-        <!--  BEGIN MAIN CONTAINER  -->
         <div class="relative">
-            <!-- sidebar menu overlay -->
-            <!-- <div class="fixed inset-0 z-50 bg-[black]/60 lg:hidden" :class="{ hidden: !store.sidebar }" @click="store.toggleSidebar()"></div> -->
-
-            <!-- screen loader -->
+            <!-- Screen Loader -->
             <div
                 v-show="store.isShowMainLoader"
                 class="screen_loader animate__animated fixed inset-0 z-[60] grid place-content-center bg-[#fafafa] dark:bg-[#060818]"
@@ -27,6 +23,7 @@
                 </svg>
             </div>
 
+            <!-- Back to Top Button -->
             <div class="fixed bottom-6 z-50 ltr:right-6 rtl:left-6">
                 <template v-if="showTopButton">
                     <button
@@ -51,45 +48,32 @@
                 </template>
             </div>
 
-            <!-- BEGIN APP SETTING LAUNCHER -->
-            <!-- <theme-customizer /> -->
-            <!-- END APP SETTING LAUNCHER -->
-
             <div class="main-container min-h-screen text-black dark:text-white-dark" :class="[store.navbar]">
-                <!--  BEGIN SIDEBAR  -->
-                <!-- <layout-sidebar /> -->
-                <!--  END SIDEBAR  -->
+                <!-- Content Area -->
+                <div class="animation">
+                    <NuxtPage />
+                </div>
 
-                <!-- <div class="main-content flex min-h-screen flex-col"> -->
-                    <!--  BEGIN TOP NAVBAR  -->
-                    <!-- <layout-header /> -->
-                    <!--  END TOP NAVBAR  -->
-
-                    <!--  BEGIN CONTENT AREA  -->
-                    <div class="animation ">
-                        <NuxtPage />
-                    </div>
-                    <!--  END CONTENT AREA  -->
-
-                    <!-- BEGIN FOOTER -->
-                    <layout-footer />
-                    <!-- END FOOTER -->
-                <!-- </div> -->
+                <!-- Footer -->
+                <layout-footer />
             </div>
         </div>
     </div>
 </template>
+
 <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
     import appSetting from '@/app-setting';
     import { useAppStore } from '@/stores/index';
+    
     const store = useAppStore();
     const showTopButton = ref(false);
     const { setLocale } = useI18n();
+    
     onMounted(() => {
-        // set default settings
+        // Set default settings
         appSetting.init(setLocale);
 
+        // Handle scroll to show/hide back to top button
         window.onscroll = () => {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
                 showTopButton.value = true;
@@ -98,10 +82,12 @@
             }
         };
 
+        // Handle animation end
         const eleanimation: any = document.querySelector('.animation');
         eleanimation.addEventListener('animationend', function () {
             appSetting.changeAnimation('remove');
         });
+        
         store.toggleMainLoader();
     });
 

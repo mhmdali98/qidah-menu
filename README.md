@@ -1,142 +1,157 @@
 # Qidah Restaurant Menu
 
-A modern, responsive restaurant menu website built with Nuxt 3, Vue 3, and Tailwind CSS.
+قائمة طعام مطعم قيدح - تطبيق ويب بسيط وأنيق لعرض قائمة الطعام
 
-## Features
+## المميزات
 
-- 🌙 **Dark Mode Support** - Toggle between light and dark themes
-- 🌍 **Multi-language Support** - English and Arabic with RTL support
-- 📱 **Mobile Responsive** - Optimized for all device sizes
-- 🍽️ **Beautiful Menu Display** - Organized by categories with detailed information
-- ⚡ **Fast Performance** - Built with modern web technologies
+- 🍽️ عرض قائمة الطعام بتصميم جميل ومتجاوب
+- 🏷️ تصنيف الأطباق حسب الفئات (سلطات، مقبلات، لحوم، دجاج، بحريات)
+- 🌐 دعم اللغتين العربية والإنجليزية
+- 📱 تصميم متجاوب يعمل على جميع الأجهزة
+- ⚡ أداء سريع مع Nuxt 3
+- 🎨 تصميم عصري مع Tailwind CSS
 
-## Menu Categories
+## التقنيات المستخدمة
 
-- **Appetizers** - Hummus, Falafel, Baba Ganoush
-- **Main Courses** - Shawarma Plate, Kebab Mix, Mansaf
-- **Desserts** - Baklava, Kunafa, Umm Ali
-- **Beverages** - Arabic Coffee, Mint Tea, Ayran
+- **Nuxt 3** - إطار عمل Vue.js
+- **Vue 3** - إطار عمل الواجهة الأمامية
+- **TypeScript** - لكتابة كود آمن ومنظم
+- **Tailwind CSS** - لإطار عمل التصميم
+- **Pinia** - لإدارة الحالة
+- **Iconify** - لأيقونات جميلة
+- **i18n** - لدعم اللغات المتعددة
 
-## Tech Stack
-
-- **Framework**: Nuxt 3
-- **Frontend**: Vue 3 with TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: Pinia
-- **Internationalization**: @nuxtjs/i18n
-- **Icons**: @iconify/vue
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd qidah-menu
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-
-4. Open your browser and navigate to `http://localhost:3000`
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Project Structure
+## هيكل المشروع
 
 ```
 qidah-menu/
-├── components/          # Vue components
-│   └── layout/         # Layout components (Header, Sidebar, Footer)
-├── locales/            # Translation files
-│   ├── en.json         # English translations
-│   └── ar.json         # Arabic translations
-├── pages/              # Application pages
-│   └── index.vue       # Main menu page
-├── stores/             # Pinia stores
-├── assets/             # Static assets
-└── public/             # Public files
+├── components/          # مكونات Vue
+│   ├── CategoriesHeader.vue
+│   ├── CategoryCard.vue
+│   ├── CategoryNavigation.vue
+│   ├── IconifyIcon.vue
+│   └── layout/
+│       └── Footer.vue
+├── data/               # بيانات التطبيق
+│   ├── categories.ts
+│   └── menuItems.ts
+├── i18n/              # ملفات الترجمة
+│   └── locales/
+│       ├── ar.json
+│       └── en.json
+├── pages/             # صفحات التطبيق
+│   ├── index.vue      # الصفحة الرئيسية
+│   └── menu.vue       # صفحة القائمة
+├── stores/            # إدارة الحالة
+│   └── index.ts
+├── assets/            # الملفات الثابتة
+│   └── css/
+│       ├── app.css
+│       ├── categories.css
+│       ├── menu.css
+│       ├── rtl.css
+│       └── tailwind.css
+└── public/            # الملفات العامة
+    └── assets/
+        └── images/
+            ├── favicon.png
+            ├── logo.png
+            └── flags/
+                ├── AR.svg
+                └── EN.svg
 ```
 
-## Customization
+## التثبيت والتشغيل
 
-### Adding Menu Items
+1. **تثبيت التبعيات:**
+   ```bash
+   npm install
+   ```
 
-Edit the menu data in `pages/index.vue`:
+2. **تشغيل خادم التطوير:**
+   ```bash
+   npm run dev
+   ```
 
-```javascript
-const appetizers = ref([
+3. **بناء المشروع للإنتاج:**
+   ```bash
+   npm run build
+   ```
+
+4. **معاينة الإنتاج:**
+   ```bash
+   npm run preview
+   ```
+
+## إضافة أطباق جديدة
+
+لإضافة أطباق جديدة، قم بتعديل ملف `data/menuItems.ts`:
+
+```typescript
+export interface MenuItem {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+}
+
+export const menuItems: MenuItem[] = [
   {
-    id: 1,
-    name: 'New Item',
-    description: 'Description here',
-    price: '$9.99',
-    calories: 300,
-    spiceLevel: 2
+    id: 'new-dish',
+    title: 'اسم الطبق الجديد',
+    description: 'وصف الطبق',
+    price: 15000,
+    image: '/path/to/image.jpg',
+    category: 'meat' // أو أي فئة أخرى
   }
-]);
+];
 ```
 
-### Adding Languages
+## إضافة فئات جديدة
 
-1. Add new language file in `locales/` directory
-2. Update `nuxt.config.ts`:
+لإضافة فئات جديدة، قم بتعديل ملف `data/categories.ts`:
 
-```javascript
-i18n: {
-  locales: [
-    { code: 'en', file: 'en.json' },
-    { code: 'ar', file: 'ar.json' },
-    { code: 'fr', file: 'fr.json' } // New language
-  ],
-  // ...
+```typescript
+export interface Category {
+  id: string;
+  titleKey: string;
+  icon: string;
+}
+
+export const categories: Category[] = [
+  {
+    id: 'new-category',
+    titleKey: 'new.category.title',
+    icon: 'mdi:food'
+  }
+];
+```
+
+## الترجمة
+
+لإضافة ترجمات جديدة، قم بتعديل ملفات الترجمة في `i18n/locales/`:
+
+```json
+{
+  "new.category.title": "اسم الفئة الجديدة"
 }
 ```
 
-3. Add language to store in `stores/index.ts`:
+## المساهمة
 
-```javascript
-languageList: [
-  { code: 'en', name: 'English' },
-  { code: 'ar', name: 'Arabic' },
-  { code: 'fr', name: 'French' } // New language
-]
-```
+نرحب بالمساهمات! يرجى اتباع هذه الخطوات:
 
-## Contributing
+1. Fork المشروع
+2. إنشاء فرع جديد للميزة
+3. إجراء التغييرات
+4. إرسال Pull Request
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+## الترخيص
 
-## License
+هذا المشروع مرخص تحت رخصة MIT.
 
-This project is licensed under the MIT License.
+## الدعم
 
-## Support
-
-For support, please contact the development team.
+إذا واجهت أي مشاكل أو لديك أسئلة، يرجى فتح issue في GitHub.

@@ -3,20 +3,22 @@
     <!-- Header -->
     <CategoriesHeader @search="handleSearch" @item-click="handleItemClick" />
 
-    <!-- Category Header with Back Button -->
+    <!-- Back Button -->
     <div style="text-align: center">
       <button class="back-button" @click="goBack">
         <span>الرجوع للقائمة</span>
         <IconifyIcon icon="mdi:arrow-left" class="back-icon" />
       </button>
     </div>
+    
+    <!-- Category Title -->
     <div style="text-align: center">
       <h1 class="category-title-main">
         {{ $t(currentCategory?.titleKey || "") }}
       </h1>
     </div>
 
-    <!-- Horizontal Menu Items Display -->
+    <!-- Menu Items Grid -->
     <div class="menu-items-container">
       <div class="menu-items-grid">
         <div
@@ -38,8 +40,6 @@
             <!-- Expanded Details -->
             <div v-if="expandedItem === item.id" class="">
               <div class="details-divider"></div>
-
-              <!-- Additional Description -->
               <div class="additional-description">
                 <p>{{ item.description }}</p>
               </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { categories } from "~/data/categories";
 import { menuItems } from "~/data/menuItems";
@@ -103,23 +103,6 @@ const toggleItemExpansion = (item: MenuItem) => {
     expandedItem.value = item.id;
   }
 };
-
-// Close expansion
-const closeExpansion = () => {
-  expandedItem.value = null;
-};
-
-// Handle initial category from URL
-const handleInitialSetup = () => {
-  const hash = route.hash.replace("#", "");
-  if (hash && categories.some((cat) => cat.id === hash)) {
-    // Category is already set via computed
-  }
-};
-
-onMounted(() => {
-  handleInitialSetup();
-});
 </script>
 
 <style>
@@ -132,17 +115,7 @@ onMounted(() => {
   text-align: center;
 }
 
-/* Category Header Styles */
-.category-header {
-  background: #06923e;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
+/* Back Button Styles */
 .back-button {
   display: flex;
   align-items: center;
@@ -258,15 +231,6 @@ onMounted(() => {
   flex: 1;
 }
 
-.item-description {
-  color: #666;
-  font-size: 14px;
-  margin: 0 0 15px 0;
-  line-height: 1.5;
-  direction: rtl;
-  text-align: center;
-}
-
 .item-price {
   color: #333;
   font-size: 16px;
@@ -277,43 +241,10 @@ onMounted(() => {
 }
 
 /* Expanded Details */
-.expanded-details {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .details-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, #06923e, transparent);
   margin: 15px 0;
-}
-
-.details-info {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 20px 0;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #666;
-  font-size: 14px;
 }
 
 .additional-description {
@@ -327,27 +258,6 @@ onMounted(() => {
   line-height: 1.6;
   margin: 10px 0;
   direction: rtl;
-}
-
-.close-expansion-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #199a4c;
-  border: none;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  margin: 15px auto 0;
-}
-
-.close-expansion-button:hover {
-  background: #158a42;
-  transform: translateY(-1px);
 }
 
 /* Responsive Design */
@@ -380,11 +290,6 @@ onMounted(() => {
   .item-title {
     font-size: 16px;
   }
-
-  .details-info {
-    flex-direction: column;
-    gap: 15px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -404,9 +309,5 @@ onMounted(() => {
   .menu-item-image {
     height: 160px;
   }
-}
-
-.bbb {
-  background-color: #031c12 !important;
 }
 </style>

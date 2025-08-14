@@ -5,7 +5,7 @@ export default defineNuxtConfig({
             title: 'Qidah Restaurant',
             titleTemplate: '%s | Qidah Restaurant',
             htmlAttrs: {
-                lang: 'en',
+                lang: 'ar',
             },
             meta: [
                 { charset: 'utf-8' },
@@ -41,17 +41,16 @@ export default defineNuxtConfig({
           { code: 'en', name: 'English', file: 'en.json', dir: 'ltr' },
           { code: 'ar', name: 'العربية', file: 'ar.json', dir: 'rtl' }
         ],
-        strategy: 'no_prefix', // يمكنك استخدام 'prefix' أو 'prefix_except_default' حسب الحاجة
+        strategy: 'no_prefix',
         lazy: true,
         vueI18n: './i18n.config.ts'
-      },
+    },
 
     router: {
         options: { linkExactActiveClass: 'active' },
     },
     compatibilityDate: '2024-09-21',
     
-    // تكوين Iconify
     components: {
         global: true,
         dirs: ['~/components']
