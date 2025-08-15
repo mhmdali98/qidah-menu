@@ -28,7 +28,6 @@ const randomNumber = Math.floor(Math.random() * 5) + 1;
 <style scoped>
 .category-image {
   width: 4rem;
-  height: 4rem;
   object-fit: cover;
   border-radius: 0.5rem;
 }
