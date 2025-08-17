@@ -4,15 +4,14 @@
     :class="{ expanded: isExpanded }"
     @click="$emit('toggle-expansion', item)"
   >
-    <!-- Badge outside the card on the left -->
-    <div v-if="item.best" class="badge best-badge outside-badge">الأفضل</div>
+
 
     <!-- Horizontal layout (default) -->
     <div v-if="!isExpanded" class="horizontal-layout">
       <div class="menu-item-content">
         <div class="item-header">
           <h3 class="item-title">{{ item.name_ar || item.name }}</h3>
-          <div class="item-price">{{ formatPrice(item.price) }} IQD</div>
+          <div class="item-price"><b class="text-primary"> {{ formatPrice(item.price) }} </b> IQD</div>
         </div>
       </div>
       <div class="menu-item-image">
@@ -21,8 +20,6 @@
           :alt="item.name_ar || item.name"
           class="item-image"
         />
-        <!-- Only today badge inside image -->
-        <div v-if="item.today" class="badge today-badge">اليوم</div>
       </div>
     </div>
 
@@ -34,14 +31,13 @@
           :alt="item.name_ar || item.name"
           class="item-image-expanded"
         />
-        <!-- Only today badge inside image -->
-        <div v-if="item.today" class="badge today-badge">اليوم</div>
+     
       </div>
       <div class="menu-item-content-expanded">
         <div class="item-header-expanded">
           <h3 class="item-title-expanded">{{ item.name_ar || item.name }}</h3>
           <div class="item-price-expanded">
-            {{ formatPrice(item.price) }} IQD
+           <b class="text-primary"> {{ formatPrice(item.price) }} </b> IQD
           </div>
         </div>
         <div class="item-ingredients">
@@ -69,7 +65,7 @@ defineEmits<{
 }>();
 
 const formatPrice = (price: number) => {
-  return price.toLocaleString("ar-EG");
+  return price.toLocaleString("en-EG");
 };
 </script>
 
@@ -177,7 +173,7 @@ const formatPrice = (price: number) => {
 
 .item-title-expanded {
   color: #333;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   margin: 0;
   direction: rtl;
@@ -258,7 +254,7 @@ const formatPrice = (price: number) => {
 
 .item-title {
   color: #333;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   margin: 0;
   direction: rtl;
@@ -351,11 +347,11 @@ const formatPrice = (price: number) => {
   }
 
   .item-title {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .item-price {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .item-title-expanded {
@@ -363,7 +359,7 @@ const formatPrice = (price: number) => {
   }
 
   .item-price-expanded {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -377,8 +373,8 @@ const formatPrice = (price: number) => {
   }
 
   .menu-item-image {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
 
   .menu-item-image-expanded {
