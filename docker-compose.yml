@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  # Production service for running the built app
+  app:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run build && npm run preview"
+    ports:
+      - "82:3000"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
