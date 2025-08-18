@@ -2,16 +2,16 @@ version: '3.8'
 
 services:
   # Production service for running the built app
-  app:
-    image: node:18-alpine
-    working_dir: /app
+  qidah-menu:
+    image: node:20-alpine
+    working_dir: /qidah-menu
     volumes:
-      - .:/app
-      - /app/node_modules
-    command: sh -c "npm install && npm run build && npm run preview"
+      - .:/qidah-menu
+      - /qidah-menu/node_modules
+    command: sh -c "npm i && npm run build && node .output/server/index.mjs"
     ports:
       - "82:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - HOST=0.0.0.0
       - PORT=3000
